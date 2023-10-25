@@ -1,6 +1,8 @@
 package com.project.euquero.execptionsHandler.handler;
 
 import com.project.euquero.execptionsHandler.EmailNotFoundException;
+import com.project.euquero.execptionsHandler.InvalidJwtAuthenticationException;
+import com.project.euquero.execptionsHandler.ResourceNotFoundException;
 import com.project.euquero.execptionsHandler.ResponseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,24 @@ public class CustomizeHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<ResponseException> emailNotFoundExceptionHandler(WebRequest request, Exception ex){
+
+        var responseException = new ResponseException(ex.getMessage(), LocalDateTime.now(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(responseException, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public ResponseEntity<ResponseException> InvalidJwtAuthenticationExceptionHandler(WebRequest request, Exception ex){
+
+        var responseException = new ResponseException(ex.getMessage(), LocalDateTime.now(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(responseException, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ResponseException> ResourceNotFoundExceptionHandler(WebRequest request, Exception ex){
 
         var responseException = new ResponseException(ex.getMessage(), LocalDateTime.now(),
                 request.getDescription(false));
