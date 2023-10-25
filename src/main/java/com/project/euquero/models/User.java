@@ -1,5 +1,6 @@
 package com.project.euquero.models;
 
+import com.project.euquero.models.token.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,6 +42,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_empresa", joinColumns = {@JoinColumn(name = "user_id")},
