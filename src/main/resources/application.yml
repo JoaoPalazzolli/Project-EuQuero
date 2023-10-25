@@ -1,0 +1,41 @@
+cors:
+  originPatterns: http://localhost:3000,http://localhost:8080,http://127.0.0.1:5500
+file:
+  upload-dir: src/main/resources/static/images/product-images
+security:
+  jwt:
+    token:
+      secret-key: 743677397A244326452948404D635166546A576E5A7234753778214125442A47
+      expire-length: 3600000
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/euquero?useTimezone=true&serverTimezone=UTC&useSSL=true
+    username: root
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: username
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+support:
+  mail: username
