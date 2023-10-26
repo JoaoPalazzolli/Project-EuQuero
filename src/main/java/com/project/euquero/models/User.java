@@ -46,15 +46,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
+    @OneToMany(mappedBy = "id.user",fetch = FetchType.EAGER)
+    private List<UserPermission> permissions;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_empresa", joinColumns = {@JoinColumn(name = "user_id")},
         inverseJoinColumns = {@JoinColumn(name = "empresa_id")})
     private List<Empresa> empresas;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permission", joinColumns = {@JoinColumn(name = "user_id")},
-        inverseJoinColumns = {@JoinColumn(name = "permission_id")})
-    private List<Permission> permission;
 
     @Column(name = "account_non_expired")
     private Boolean accountNonExpired;
@@ -70,7 +68,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permission;
+        return this.permissions;
     }
 
     @Override
