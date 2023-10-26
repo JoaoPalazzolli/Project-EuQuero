@@ -2,6 +2,7 @@ package com.project.euquero.security.jwt;
 
 import com.project.euquero.repositories.TokenRepository;
 import com.project.euquero.security.jwt.service.JwtService;
+import com.project.euquero.security.jwt.service.PacotePremiumService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private PacotePremiumService pacotePremiumService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -48,6 +52,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null){
 
            var user = userDetailsService.loadUserByUsername(email);
+
+           pacotePremiumService.verificarPacote(user); // verificar Expiracao do plano
 
            var isTokenValid = tokenRepository.findByAccessToken(token)
                    .map(x -> !x.isExpired() && !x.isRevoked())
