@@ -4,11 +4,14 @@ import com.project.euquero.dtos.auth.LoginRequestDTO;
 import com.project.euquero.dtos.auth.RegisterRequestDTO;
 import com.project.euquero.dtos.auth.TokenDTO;
 import com.project.euquero.execptionsHandler.InvalidJwtAuthenticationException;
+import com.project.euquero.models.UserPermission;
+import com.project.euquero.models.UserPermissionPK;
 import com.project.euquero.models.User;
 import com.project.euquero.models.token.Token;
 import com.project.euquero.models.token.enums.TokenType;
 import com.project.euquero.repositories.PermissionRepository;
 import com.project.euquero.repositories.TokenRepository;
+import com.project.euquero.repositories.UserPermissionRepository;
 import com.project.euquero.repositories.UserRepository;
 import com.project.euquero.security.jwt.service.JwtService;
 import com.project.euquero.services.auth.authenticated.AuthenticatedUser;
@@ -23,7 +26,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.logging.Logger;
 
 @Service
@@ -44,6 +46,9 @@ public class AuthService {
     private PermissionRepository permissionRepository;
 
     @Autowired
+    private UserPermissionRepository userPermissionRepository;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -60,7 +65,6 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .cpf(request.getCpf())
                 .phone(request.getPhone())
-                .permission(Collections.singletonList(permissionRepository.findById(1L).orElseThrow()))
                 .accountNonExpired(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
@@ -68,6 +72,16 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
+
+        var userPermission = UserPermission.builder()
+                .id(UserPermissionPK.builder()
+                        .permission(permissionRepository.findByDescricao("USER").orElseThrow())
+                        .user(user)
+                        .build())
+                .expireAt(null)
+                .build();
+
+        userPermissionRepository.save(userPermission);
 
         var tokenDTO = jwtService.createToken(user);
 

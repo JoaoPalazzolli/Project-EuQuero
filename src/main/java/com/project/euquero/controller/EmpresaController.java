@@ -16,7 +16,8 @@ public class EmpresaController {
     @Autowired
     private EmpresaServices empresaServices;
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @GetMapping(
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ResponseEntity<List<EmpresaDTO>> findAll(){
         return empresaServices.findAll();
     }
