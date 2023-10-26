@@ -1,18 +1,18 @@
 package com.project.euquero.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class EmpresaDTO implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -24,6 +24,6 @@ public class EmpresaDTO implements Serializable {
     private String tipoEmpresa;
     private String urlEmpresa;
     private String urlImagem;
-
+    private List<EnderecoDTO> enderecos;
 
 }
