@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,4 +45,6 @@ public class Empresa implements Serializable {
     @Column(name = "url_imagem")
     private String urlImage;
 
+    @OneToMany(mappedBy = "empresa")
+    private List<Endereco> enderecos;
 }
