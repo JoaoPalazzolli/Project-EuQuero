@@ -1,9 +1,9 @@
-package com.project.euquero.execptionsHandler.handler;
+package com.project.euquero.execptions.handler;
 
-import com.project.euquero.execptionsHandler.EmailNotFoundException;
-import com.project.euquero.execptionsHandler.InvalidJwtAuthenticationException;
-import com.project.euquero.execptionsHandler.ResourceNotFoundException;
-import com.project.euquero.execptionsHandler.ResponseException;
+import com.project.euquero.execptions.EmailNotFoundException;
+import com.project.euquero.execptions.InvalidJwtAuthenticationException;
+import com.project.euquero.execptions.ResourceNotFoundException;
+import com.project.euquero.execptions.ResponseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

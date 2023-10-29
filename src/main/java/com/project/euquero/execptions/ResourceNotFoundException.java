@@ -1,4 +1,4 @@
-package com.project.euquero.execptionsHandler;
+package com.project.euquero.execptions;
 
 import com.project.euquero.utils.ErrorMessages;
 import org.springframework.http.HttpStatus;

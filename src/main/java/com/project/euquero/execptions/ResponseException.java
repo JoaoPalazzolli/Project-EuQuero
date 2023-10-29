@@ -1,4 +1,4 @@
-package com.project.euquero.execptionsHandler;
+package com.project.euquero.execptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

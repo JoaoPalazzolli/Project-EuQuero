@@ -1,7 +1,7 @@
 package com.project.euquero.security.jwt.service;
 
 import com.project.euquero.dtos.auth.TokenDTO;
-import com.project.euquero.execptionsHandler.InvalidJwtAuthenticationException;
+import com.project.euquero.execptions.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -3,7 +3,7 @@ package com.project.euquero.services.auth;
 import com.project.euquero.dtos.auth.LoginRequestDTO;
 import com.project.euquero.dtos.auth.RegisterRequestDTO;
 import com.project.euquero.dtos.auth.TokenDTO;
-import com.project.euquero.execptionsHandler.InvalidJwtAuthenticationException;
+import com.project.euquero.execptions.InvalidJwtAuthenticationException;
 import com.project.euquero.models.UserPermission;
 import com.project.euquero.models.UserPermissionPK;
 import com.project.euquero.models.User;

@@ -1,6 +1,6 @@
 package com.project.euquero.configs;
 
-import com.project.euquero.execptionsHandler.EmailNotFoundException;
+import com.project.euquero.execptions.EmailNotFoundException;
 import com.project.euquero.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
