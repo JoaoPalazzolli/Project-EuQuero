@@ -18,6 +18,12 @@ public class EmpresaController {
 
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ResponseEntity<List<EmpresaDTO>> findaAll(){
+        return empresaServices.findAll();
+    }
+
+    @GetMapping(value = "/premium",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ResponseEntity<List<EmpresaDTO>> findAll(){
         return empresaServices.findAll();
     }
