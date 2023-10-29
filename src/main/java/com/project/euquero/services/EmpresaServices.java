@@ -3,13 +3,12 @@ package com.project.euquero.services;
 import com.project.euquero.controller.EmpresaController;
 import com.project.euquero.dtos.EmpresaDTO;
 import com.project.euquero.dtos.EnderecoDTO;
-import com.project.euquero.execptionsHandler.ResourceNotFoundException;
+import com.project.euquero.execptions.ResourceNotFoundException;
 import com.project.euquero.mapper.Mapper;
 import com.project.euquero.models.Empresa;
 import com.project.euquero.models.Endereco;
 import com.project.euquero.models.enums.TipoEmpresa;
 import com.project.euquero.repositories.EmpresaRepository;
-import com.project.euquero.repositories.EnderecoRepository;
 import com.project.euquero.repositories.UserRepository;
 import com.project.euquero.services.auth.authenticated.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 

@@ -1,7 +1,7 @@
 package com.project.euquero.services.auth;
 
-import com.project.euquero.execptionsHandler.InvalidJwtAuthenticationException;
-import com.project.euquero.execptionsHandler.ResourceNotFoundException;
+import com.project.euquero.execptions.InvalidJwtAuthenticationException;
+import com.project.euquero.execptions.ResourceNotFoundException;
 import com.project.euquero.repositories.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
