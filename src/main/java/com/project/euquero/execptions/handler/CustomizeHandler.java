@@ -1,9 +1,6 @@
 package com.project.euquero.execptions.handler;
 
-import com.project.euquero.execptions.EmailNotFoundException;
-import com.project.euquero.execptions.InvalidJwtAuthenticationException;
-import com.project.euquero.execptions.ResourceNotFoundException;
-import com.project.euquero.execptions.ResponseException;
+import com.project.euquero.execptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,5 +47,14 @@ public class CustomizeHandler extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
 
         return new ResponseEntity<>(responseException, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ResponseException> ConflictExceptionHandler(WebRequest request, Exception ex){
+
+        var responseException = new ResponseException(ex.getMessage(), LocalDateTime.now(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(responseException, HttpStatus.CONFLICT);
     }
 }
