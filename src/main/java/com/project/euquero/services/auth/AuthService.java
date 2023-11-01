@@ -79,6 +79,7 @@ public class AuthService {
                         .user(user)
                         .build())
                 .expireAt(null)
+                .planoAtivado(false)
                 .build();
 
         userPermissionRepository.save(userPermission);
