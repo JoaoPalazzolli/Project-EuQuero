@@ -29,6 +29,9 @@ public class UserPermission implements GrantedAuthority {
     @Column
     private LocalDateTime expireAt;
 
+    @Column(name = "plano_ativado")
+    private Boolean planoAtivado;
+
     @Override
     public String getAuthority() {
         return this.id.getPermission().getDescricao();
