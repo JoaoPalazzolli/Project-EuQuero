@@ -1,10 +1,13 @@
 package com.project.euquero.services;
 
 import com.project.euquero.dtos.EnderecoDTO;
+import com.project.euquero.execptions.ConflictException;
 import com.project.euquero.mapper.Mapper;
 import com.project.euquero.models.Empresa;
 import com.project.euquero.models.Endereco;
+import com.project.euquero.models.Organizacao;
 import com.project.euquero.repositories.EnderecoRepository;
+import com.project.euquero.utils.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,12 +25,23 @@ public class EnderecoService {
     private EnderecoRepository enderecoRepository;
 
     @Transactional
-    public EnderecoDTO registrarEndereco(EnderecoDTO enderecoDTO, Empresa empresa){
+    public EnderecoDTO registrarEndereco(EnderecoDTO enderecoDTO, Organizacao organizacao){
 
         var dto = consultarCEP(enderecoDTO);
 
+        if (enderecoRepository.existsByOrganizacaoIdAndCepAndNumeroAndLocalidadeAndUfAndLogradouroAndComplementoAndBairro(
+                organizacao.getId(),
+                dto.getCep(),
+                dto.getNumero(),
+                dto.getLocalidade(),
+                dto.getUf(),
+                dto.getLogradouro(),
+                dto.getComplemento(),
+                dto.getBairro()))
+            throw new ConflictException(ErrorMessages.ADDRESS_CONFLICT);
+
         var endereco = Mapper.parseObject(dto, Endereco.class);
-        endereco.setEmpresa(empresa);
+        endereco.setOrganizacao(organizacao);
 
         return Mapper.parseObject(enderecoRepository.save(endereco), EnderecoDTO.class);
     }
