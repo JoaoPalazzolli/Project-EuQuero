@@ -25,8 +25,8 @@ public class UserDTO implements Serializable {
     private String cpf;
     private String phone;
     private String email;
-    private List<EmpresaDTO> empresas;
-    @JsonProperty("pacote")
-    private String permissionDescricao;
+    private List<OrganizacaoDTO> empresas;
+    @JsonProperty("Plano")
+    private String permissionsIdPermissionDescricao;
 
 }
