@@ -50,9 +50,9 @@ public class User implements UserDetails {
     private List<UserPermission> permissions;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_empresa", joinColumns = {@JoinColumn(name = "user_id")},
-        inverseJoinColumns = {@JoinColumn(name = "empresa_id")})
-    private List<Empresa> empresas;
+    @JoinTable(name = "user_organizacao", joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "organizacao_id")})
+    private List<Organizacao> organizacoes;
 
     @Column(name = "account_non_expired")
     private Boolean accountNonExpired;

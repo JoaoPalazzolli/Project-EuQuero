@@ -13,14 +13,13 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@DiscriminatorValue("EMPRESA")
-public class Empresa extends Organizacao implements Serializable {
+@DiscriminatorValue("ONG")
+public class Ongs extends Organizacao implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(unique = true)
-    private String cnpj;
-
+    @Column
+    private String objetivo;
 
 }

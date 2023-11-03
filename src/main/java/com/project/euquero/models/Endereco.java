@@ -49,6 +49,6 @@ public class Endereco implements Serializable {
     private String ddd;
 
     @ManyToOne
-    @JoinColumn(name = "empresa_id", nullable = false)
-    private Empresa empresa;
+    @JoinColumn(name = "organizacao_id", nullable = false)
+    private Organizacao organizacao;
 }
