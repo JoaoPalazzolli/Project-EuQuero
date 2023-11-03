@@ -1,6 +1,6 @@
 authorizeHttpRequests:
   permitAll: /auth/login,/auth/register,/swagger-ui/**,/v3/api-docs/**,/auth/emailVerification,/auth/resendEmailVerification
-  authenticated: /api/v1/empresa,/auth/refresh,/api/v1/plans/buy/**
+  authenticated: /api/v1/organizacao,/auth/refresh,/api/v1/plans/buy/**
   premium: /api/**
   adminsOnly: /admin/**
   denyAll: /users
