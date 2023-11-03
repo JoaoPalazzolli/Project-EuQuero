@@ -53,7 +53,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
            var user = userDetailsService.loadUserByUsername(email);
 
-           var isPlanValid = pacotePremiumService.isPlanValid(user); // verificar Expiracao do plano
+           var isPlanValid = pacotePremiumService.isPlanValid(user, request.getRequestURI()); // verificar Expiracao do plano
 
            var isTokenValid = tokenRepository.findByAccessToken(token)
                    .map(x -> !x.isExpired() && !x.isRevoked())

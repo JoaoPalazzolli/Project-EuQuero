@@ -26,7 +26,7 @@ public class PacotePremiumService {
     private PermissionRepository permissionRepository;
 
     @Transactional
-    public Boolean isPlanValid(UserDetails userDetails) {
+    public Boolean isPlanValid(UserDetails userDetails, String uri) {
 
         var user = (User) userDetails;
 
@@ -38,10 +38,10 @@ public class PacotePremiumService {
 
         if (userPermission.getExpireAt().isBefore(LocalDateTime.now())) {
             userPermissionRepository.deleteUserPermission(
-                    userPermission.getId().getPermission().getId(),
+                    userPermission.getId().getUser().getId(),
                     userPermission.getId().getPermission().getId());
 
-            return false;
+            return !uri.contains("premium");
         } else {
             return true;
         }
