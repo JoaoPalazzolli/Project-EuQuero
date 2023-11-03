@@ -34,7 +34,7 @@ public class OrganizacaoController {
     }
 
     @PostMapping(
-            value = "/organizacao/premium",
+            value = "/premium",
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ResponseEntity<OrganizacaoDTO> createOrganizacao(@RequestBody OrganizacaoDTO organizacaoDTO){
