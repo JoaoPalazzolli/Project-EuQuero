@@ -6,6 +6,8 @@ public class ErrorMessages {
     public static final String INVALID_TOKEN = "Expired or invalid JWT token!";
     public static final String CONTENT_NOT_FOUND = "Content Not Found";
     public static final String ALREADY_HAS_A_PLAN = "The User Already Has a Plan";
+    public static final String THIS_CNPJ_ALREADY_EXISTS = "This CNPJ is Already Registered";
+    public static final String ADDRESS_CONFLICT = "This Address is Already Registered";
     public static final String CONTENT_NOT_BLANK = "This Content cannot be Blank";
     public static final String CONTENT_NOT_NULL = "This Content cannot be Null";
     public static final String INVALID_FIELD = "Invalid Field";
