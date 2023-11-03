@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Serializable {
+public class OrganizacaoDTO extends RepresentationModel<OrganizacaoDTO> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -21,8 +21,8 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
     private String nome;
     private String cnpj;
     private String descricao;
-    private String tipoEmpresa;
-    private String urlEmpresa;
+    private String objetivo;
+    private String urlSite;
     private String urlImagem;
     private List<EnderecoDTO> enderecos;
 
