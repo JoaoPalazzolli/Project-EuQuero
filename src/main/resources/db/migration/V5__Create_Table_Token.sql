@@ -2,7 +2,7 @@
 
 -- DROP TABLE IF EXISTS public.token;
 
-CREATE SEQUENCE token_id_seq;
+CREATE SEQUENCE IF NOT EXISTS token_id_seq;
 
 CREATE TABLE IF NOT EXISTS public.token
 (

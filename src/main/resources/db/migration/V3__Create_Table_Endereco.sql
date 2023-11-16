@@ -2,7 +2,7 @@
 
 -- DROP TABLE IF EXISTS public.endereco;
 
-CREATE SEQUENCE endereco_id_seq;
+CREATE SEQUENCE IF NOT EXISTS endereco_id_seq;
 
 CREATE TABLE IF NOT EXISTS public.endereco
 (

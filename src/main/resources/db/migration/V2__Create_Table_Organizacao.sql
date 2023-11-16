@@ -2,7 +2,7 @@
 
 -- DROP TABLE IF EXISTS public.organizacao;
 
-CREATE SEQUENCE organizacao_id_seq;
+CREATE SEQUENCE IF NOT EXISTS organizacao_id_seq;
 
 CREATE TABLE IF NOT EXISTS public.organizacao
 (

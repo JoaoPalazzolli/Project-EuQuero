@@ -2,7 +2,7 @@
 
 -- DROP TABLE IF EXISTS public.permissions;
 
-CREATE SEQUENCE permissions_id_seq;
+CREATE SEQUENCE IF NOT EXISTS permissions_id_seq;
 
 CREATE TABLE IF NOT EXISTS public.permissions
 (
