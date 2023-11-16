@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<modelmapper.version>3.2.0</modelmapper.version>
-		<mysql.version>8.0.33</mysql.version>
+		<postgresql.version>42.6.0</postgresql.version>
 		<java-jwt.version>4.4.0</java-jwt.version>
 		<project-lombok.version>1.18.26</project-lombok.version>
 		<jjwt.version>0.11.5</jjwt.version>
@@ -84,12 +84,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
-
-
 
 		<dependency>
 			<groupId>org.modelmapper</groupId>
