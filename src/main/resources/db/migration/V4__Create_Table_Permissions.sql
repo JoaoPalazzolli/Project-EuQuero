@@ -13,5 +13,3 @@ CREATE TABLE IF NOT EXISTS public.permissions
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.permissions
-    OWNER to postgres;

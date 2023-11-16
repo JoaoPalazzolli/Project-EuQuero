@@ -25,5 +25,3 @@ CREATE TABLE IF NOT EXISTS public.endereco
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.endereco
-    OWNER to postgres;
