@@ -101,9 +101,9 @@ public class OrganizacaoService {
         userRepository.save(user);
 
         organizacao.setEnderecos(
-                Mapper.parseListObject(organizacao.getEnderecos().stream().map(x -> {
-                    return enderecoService.registrarEndereco(Mapper.parseObject(x, EnderecoDTO.class), organizacao);
-                }).toList(), Endereco.class));
+                Mapper.parseListObject(organizacao.getEnderecos().stream().map(x ->
+                        enderecoService.registrarEndereco(Mapper.parseObject(x, EnderecoDTO.class), organizacao)
+                ).toList(), Endereco.class));
 
         var dto = Mapper.parseObject(organizacao, OrganizacaoDTO.class);
 
