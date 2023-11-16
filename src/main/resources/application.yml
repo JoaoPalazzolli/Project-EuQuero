@@ -16,9 +16,9 @@ security:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/euquero
-    username: postgres
-    password: admin
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -38,8 +38,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: username
-    password: password
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -47,4 +47,4 @@ spring:
           starttls:
             enable: true
 support:
-  mail: username
+  mail: ${MAIL_USERNAME}
