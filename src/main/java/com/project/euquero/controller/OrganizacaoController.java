@@ -6,6 +6,7 @@ import com.project.euquero.utils.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class OrganizacaoController {
     @Autowired
     private OrganizacaoService organizacaoService;
 
+    // ajustar mapping para o findById
     @GetMapping(
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ResponseEntity<List<OrganizacaoDTO>> findaAll(){
@@ -28,7 +30,8 @@ public class OrganizacaoController {
         return organizacaoService.findAllByUser();
     }
 
-    @GetMapping(value = "/{organizacaoId}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @GetMapping(value = "/{organizacaoId}",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ResponseEntity<OrganizacaoDTO> findById(@PathVariable(value = "organizacaoId") Long organizacaoId){
         return organizacaoService.findById(organizacaoId);
     }
@@ -37,7 +40,9 @@ public class OrganizacaoController {
             value = "/premium",
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ResponseEntity<OrganizacaoDTO> createOrganizacao(@RequestBody OrganizacaoDTO organizacaoDTO){
-        return organizacaoService.createOrganizacao(organizacaoDTO);
+    public ResponseEntity<OrganizacaoDTO> createOrganizacao(
+            @RequestBody OrganizacaoDTO organizacaoDTO,
+            @RequestParam(value = "upload")MultipartFile file){
+        return organizacaoService.createOrganizacao(organizacaoDTO, file);
     }
 }

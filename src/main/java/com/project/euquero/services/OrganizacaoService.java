@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,6 +39,9 @@ public class OrganizacaoService {
 
     @Autowired
     private EnderecoService enderecoService;
+
+    @Autowired
+    private AbstractUploadFileService uploadFileService;
 
     @Transactional(readOnly = true)
     public ResponseEntity<List<OrganizacaoDTO>> findAll(){
@@ -78,7 +82,7 @@ public class OrganizacaoService {
     }
 
     @Transactional
-    public ResponseEntity<OrganizacaoDTO> createOrganizacao(OrganizacaoDTO organizacaoDTO){
+    public ResponseEntity<OrganizacaoDTO> createOrganizacao(OrganizacaoDTO organizacaoDTO, MultipartFile file){
         LOGGER.info("Registrando Organização");
 
         var user = AuthenticatedUser.getAuthenticatedUser();
@@ -91,8 +95,7 @@ public class OrganizacaoService {
 
         var organizacao = Mapper.parseObject(organizacaoDTO, tipo);
 
-        organizacao.setUrlSite(null);
-        organizacao.setUrlImage(null);
+        organizacao.setUrlImage(uploadFileService.uploadFile(file));
 
         organizacaoRepository.save(organizacao);
 
