@@ -6,8 +6,6 @@ authorizeHttpRequests:
   denyAll: /users
 cors:
   originPatterns: http://localhost:3000,http://localhost:8080,http://127.0.0.1:5500
-file:
-  upload-dir: src/main/resources/static/images/product-images
 security:
   jwt:
     token:
@@ -16,9 +14,9 @@ security:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/euquero
+    username: postgres
+    password: admin
   jpa:
     hibernate:
       ddl-auto: none
@@ -46,10 +44,14 @@ spring:
           auth: true
           starttls:
             enable: true
-flyway:
-  url: ${DATABASE_URL}
-  schemas: ${DATABASE_NAME}
-  user: ${DATABASE_USER}
-  password: ${DATABASE_PASSWORD}
 support:
   mail: ${MAIL_USERNAME}
+flyway:
+  url: jdbc:postgresql://localhost:5432/euquero
+  schemas: euquero
+  user: postgres
+  password: admin
+cloudinary:
+  cloud-name:
+  api-key:
+  api-secret:
