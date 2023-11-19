@@ -1,6 +1,7 @@
 package com.project.euquero.execptions.handler;
 
 import com.project.euquero.execptions.*;
+import com.project.euquero.services.exceptions.FileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -56,5 +57,14 @@ public class CustomizeHandler extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
 
         return new ResponseEntity<>(responseException, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(FileException.class)
+    public ResponseEntity<ResponseException> FileExceptionHandler(WebRequest request, Exception ex){
+
+        var responseException = new ResponseException(ex.getMessage(), LocalDateTime.now(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(responseException, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
