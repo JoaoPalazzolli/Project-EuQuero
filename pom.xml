@@ -21,6 +21,8 @@
 		<project-lombok.version>1.18.26</project-lombok.version>
 		<jjwt.version>0.11.5</jjwt.version>
 		<java-send-mail.version>3.1.2</java-send-mail.version>
+		<cloudinary.version>1.34.0</cloudinary.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -98,6 +100,12 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>${cloudinary.version}</version>
 		</dependency>
 
 		<dependency>
