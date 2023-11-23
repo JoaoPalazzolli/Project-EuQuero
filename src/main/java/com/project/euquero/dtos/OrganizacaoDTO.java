@@ -1,5 +1,6 @@
 package com.project.euquero.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -24,6 +25,7 @@ public class OrganizacaoDTO extends RepresentationModel<OrganizacaoDTO> implemen
     private String objetivo;
     private String urlSite;
     private String urlImagem;
+    private String tipo;
     private List<EnderecoDTO> enderecos;
 
 }
