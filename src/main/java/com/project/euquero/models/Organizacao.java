@@ -44,4 +44,9 @@ public class Organizacao implements Serializable {
     @OneToMany(mappedBy = "organizacao")
     private List<Endereco> enderecos;
 
+    @Transient
+    public String getDecriminatorValue(){
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    }
+
 }
