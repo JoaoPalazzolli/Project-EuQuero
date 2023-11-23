@@ -41,8 +41,18 @@ public class OrganizacaoController {
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ResponseEntity<OrganizacaoDTO> createOrganizacao(
-            @RequestBody OrganizacaoDTO organizacaoDTO,
-            @RequestParam(value = "upload")MultipartFile file){
-        return organizacaoService.createOrganizacao(organizacaoDTO, file);
+            @RequestBody OrganizacaoDTO organizacaoDTO/*,
+            @RequestParam(value = "imagem") MultipartFile file*/) {
+        return organizacaoService.createOrganizacao(organizacaoDTO);
+    }
+
+    @PutMapping(
+            value = "/premium",
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML},
+            consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ResponseEntity<OrganizacaoDTO> updateOrganizacao(
+            @RequestBody OrganizacaoDTO organizacaoDTO/*,
+            @RequestParam(value = "imagem") MultipartFile file*/){
+        return organizacaoService.updateOrganizacao(organizacaoDTO);
     }
 }

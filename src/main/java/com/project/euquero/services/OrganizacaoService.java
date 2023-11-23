@@ -9,6 +9,7 @@ import com.project.euquero.mapper.Mapper;
 import com.project.euquero.models.Empresa;
 import com.project.euquero.models.Endereco;
 import com.project.euquero.models.Ongs;
+import com.project.euquero.models.Organizacao;
 import com.project.euquero.repositories.OrganizacaoRepository;
 import com.project.euquero.repositories.UserRepository;
 import com.project.euquero.services.auth.authenticated.AuthenticatedUser;
@@ -47,7 +48,17 @@ public class OrganizacaoService {
     public ResponseEntity<List<OrganizacaoDTO>> findAll(){
         LOGGER.info("Buscando Todas as Organizações");
 
-        var organizacoesDTO = Mapper.parseListObject(organizacaoRepository.findAll(), OrganizacaoDTO.class);
+        var organizacao = organizacaoRepository.findAll();
+
+        var organizacoesDTO = Mapper.parseListObject(organizacao, OrganizacaoDTO.class);
+
+        organizacoesDTO.forEach(x -> {
+            organizacao.forEach(y -> {
+                if (x.getId().equals(y.getId())){
+                    x.setTipo(y.getDecriminatorValue());
+                }
+            });
+        });
 
         organizacoesDTO.forEach(x -> x.add(linkTo(methodOn(OrganizacaoController.class).findById(x.getId())).withSelfRel()));
 
@@ -82,7 +93,7 @@ public class OrganizacaoService {
     }
 
     @Transactional
-    public ResponseEntity<OrganizacaoDTO> createOrganizacao(OrganizacaoDTO organizacaoDTO, MultipartFile file){
+    public ResponseEntity<OrganizacaoDTO> createOrganizacao(OrganizacaoDTO organizacaoDTO){
         LOGGER.info("Registrando Organização");
 
         var user = AuthenticatedUser.getAuthenticatedUser();
@@ -95,7 +106,9 @@ public class OrganizacaoService {
 
         var organizacao = Mapper.parseObject(organizacaoDTO, tipo);
 
-        organizacao.setUrlImage(uploadFileService.uploadFile(file));
+        organizacao.setUrlImage(null);
+
+        // organizacao.setUrlImage(uploadFileService.uploadFile(file));
 
         organizacaoRepository.save(organizacao);
 
@@ -115,5 +128,39 @@ public class OrganizacaoService {
         LOGGER.info("Organização Registrada com Sucesso");
 
         return ResponseEntity.ok(dto);
+    }
+
+    @Transactional
+    public ResponseEntity<OrganizacaoDTO> updateOrganizacao(OrganizacaoDTO organizacaoDTO) {
+        // ajustar --- precisa pegar o discriminator value -- verificar se o discriminator value bate com as info
+
+        var user = AuthenticatedUser.getAuthenticatedUser();
+
+        var organizacaoAntiga = organizacaoRepository.findByOrganizacaoIdAndUserId(organizacaoDTO.getId(), user.getId())
+                .orElseThrow(ResourceNotFoundException::new);
+
+        var tipo = !organizacaoAntiga.getDecriminatorValue().equalsIgnoreCase("EMPRESA") ? Ongs.class : Empresa.class;
+
+        // verificar com o id do user tbm
+        if (organizacaoRepository.existsByNomeAndDescricao(organizacaoDTO.getNome(), organizacaoDTO.getDescricao()) &&
+            !organizacaoAntiga.getNome().equals(organizacaoDTO.getNome())) {
+            throw new ConflictException(ErrorMessages.CONTENT_CONFLICT);
+        }
+
+        var novaOrganizacao = Mapper.parseObject(organizacaoDTO, tipo);
+
+        novaOrganizacao.setEnderecos(organizacaoAntiga.getEnderecos());
+
+        /*
+        if (file != null)
+            novaOrganizacao.setUrlImage(uploadFileService.uploadFile(file));
+        else
+            novaOrganizacao.setUrlImage(organizacaoAntiga.getUrlImage());
+         */
+        novaOrganizacao.setUrlImage(organizacaoAntiga.getUrlImage());
+
+        var novaOrganizacaoDTO = Mapper.parseObject(organizacaoRepository.save(novaOrganizacao), OrganizacaoDTO.class);
+
+        return ResponseEntity.ok(novaOrganizacaoDTO);
     }
 }
