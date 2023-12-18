@@ -1,22 +1,26 @@
+server:
+  port: 8080
 authorizeHttpRequests:
   permitAll: /auth/login,/auth/register,/swagger-ui/**,/v3/api-docs/**,/auth/emailVerification,/auth/resendEmailVerification,/api/v1/organizacao
   authenticated: /auth/refresh,/api/v1/plans/buy/**
   premium: /api/**
   adminsOnly: /admin/**
   denyAll: /users
-cors:
-  originPatterns: http://localhost:3000,http://localhost:8080,http://127.0.0.1:5500
 security:
   jwt:
     token:
       secret-key: 743677397A244326452948404D635166546A576E5A7234753778214125442A47
       expire-length: 3600000
 spring:
+  application:
+    name: project-euquero
+  profiles:
+    active: @profileActive@
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/euquero
-    username: postgres
-    password: admin
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: none
@@ -47,11 +51,31 @@ spring:
 support:
   mail: ${MAIL_USERNAME}
 flyway:
-  url: jdbc:postgresql://localhost:5432/euquero
-  schemas: euquero
-  user: postgres
-  password: admin
+  url: ${DATABASE_URL}
+  schemas: ${DATABASE_SCHEMA}
+  user: ${DATABASE_USER}
+  password: ${DATABASE_PASSWORD}
 cloudinary:
-  cloud-name:
-  api-key:
-  api-secret:
+  cloud-name: ${CLOUD_NAME}
+  api-key: ${API_KEY}
+  api-secret: ${API_SECRET}
+
+
+# dev configuration
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import: optional:file:dev.env[.properties]
+cors:
+  originPatterns: http://localhost:8080,http://127.0.0.1:5500
+
+# prod configuration
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+cors:
+  originPatterns: http://localhost:8080,http://127.0.0.1:5500
