@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
 authorizeHttpRequests:
   permitAll: /auth/login,/auth/register,/swagger-ui/**,/v3/api-docs/**,/auth/emailVerification,/auth/resendEmailVerification,/api/v1/organizacao
   authenticated: /auth/refresh,/api/v1/plans/buy/**
