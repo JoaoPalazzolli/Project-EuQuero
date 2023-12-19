@@ -46,6 +46,11 @@ CLOUD_NAME=********                                 --> CLOUD NAME REGISTRADO AP
 API_KEY=********                                    --> API KEY REGISTRADO APÓS SE CADASTRAR NO SITE                           
 API_SECRET=********                                 --> API SECRET REGISTRADO APÓS SE CADASTRAR NO SITE 
 ```
+As informações do [cloudinary](https://cloudinary.com/) ficam no site e aparecem após se registrar.
+
+A imagem abaixo mostra um exemplo de onde conseguir os valores.
+
+![cloudinary exemplo](cloudinary_exemplo.png)
 
 ## Execução <a name = "execution"></a>
 
@@ -75,4 +80,4 @@ Depois que o Banco de Dados estiver online, digite o seguinte comando ```mvn cle
 
 Em todas as formas de executar, a aplicação deve mostrar a seguinte saída:
 
-![spring_output](spring.jpg)
+![spring_output](spring-out.png)
