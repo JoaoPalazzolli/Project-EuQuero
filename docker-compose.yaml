@@ -2,28 +2,59 @@ version: '3.8'
 
 services:
   postgres:
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_SCHEMA}'"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
     image: postgres:latest
     container_name: postgres-euquero
     restart: always
     environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: postgres
-      POSTGRES_DB: euquero
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_DB: ${DATABASE_SCHEMA}
     ports:
-      - "5432:5432"
+      - ${DATABASE_PORT}:5432
     volumes:
       - data:/var/lib/postgresql/data
-
+    networks:
+      - project-euquero-network
 
   pgadmin:
+    depends_on:
+      postgres:
+        condition: service_healthy
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_LISTEN_PORT: 5050
-
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
     ports:
-      - "5050:5050"
+      - ${PGADMIN_MAPPING_PORT}:${PGADMIN_PORT}
+    networks:
+      - project-euquero-network
+
+  api:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: project/euquero:1.0
+    container_name: project-euquero
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres:${DATABASE_PORT}/${DATABASE_SCHEMA}
+    ports:
+      - ${PORT}:8080
+    profiles: [ "dev" ]
+    networks:
+      - project-euquero-network
 
 volumes:
   data:
+
+networks:
+  project-euquero-network:
+    driver: bridge
